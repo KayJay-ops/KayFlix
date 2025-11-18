@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Video Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Vidking Player — GitHub Demo</h1>
+
+<!-- Movie Example -->
+<h2>Movie Player</h2>
+<iframe 
+  id="playerFrame"
+  src="https://www.vidking.net/embed/movie/1078605?color=e50914&autoPlay=true"
+  width="100%"
+  height="600"
+  frameborder="0"
+  allowfullscreen>
+</iframe>
+
+<!-- Progress Message Output -->
+<h3>Player Events</h3>
+<pre id="messageArea">Waiting for player events...</pre>
+
+<script>
+// Listen for progress events from the Vidking player
+window.addEventListener("message", function (event) {
+    try {
+        const data = JSON.parse(event.data);
+
+        if (data.type === "PLAYER_EVENT") {
+            document.querySelector("#messageArea").innerText =
+                JSON.stringify(data, null, 2);
+        }
+    } catch (e) {
+        console.log("Non-JSON message received");
+    }
+});
+</script>
+
+</body>
+</html>
